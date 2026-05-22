@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A private real estate consultancy. We position clients ahead of the market.">
+  <title>Dubai Premium Edge — Private Property Consultancy</title>
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <meta name="theme-color" content="#0A1828">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ─── Token overrides ─── */
+    :root {
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Jost', system-ui, sans-serif;
+
+      --navy:    #0A1828;
+      --navy-2:  #0F2340;
+      --gold:    #C9A96E;
+      --gold-d:  #A8883E;
+      --cream:   #F8F5EF;
+      --border:  #E0DAD0;
+      --muted:   #5A5A5A;
+
+      --nav-height: 72px;
+      --nav-bg: rgba(255,255,255,0.97);
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      background: #fff;
+      color: var(--navy);
+    }
+
+    /* kill the dot grid from style.css */
+    body::before { display: none; }
+
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; border: none; background: none; font: inherit; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; padding: 0; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    @media (min-width: 768px)  { .container { padding: 0 2rem; } }
+    @media (min-width: 1200px) { .container { padding: 0 3rem; } }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid var(--border);
+      z-index: 200;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: box-shadow 0.3s;
+    }
+    .nav.scrolled { box-shadow: 0 2px 24px rgba(10,24,40,0.09); }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .nav__logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav__logo-prefix {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--navy);
+    }
+
+    .nav__logo-sep {
+      width: 1px;
+      height: 18px;
+      background: var(--gold);
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+
+    .nav__logo-word {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+    }
+
+    .nav__links {
+      display: none;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    @media (min-width: 1024px) { .nav__links { display: flex; } }
+
+    .nav__links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--navy);
+      transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--gold); }
+
+    .nav__cta {
+      height: 40px;
+      padding: 0 1.5rem;
+      background: var(--navy);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .nav__cta:hover { background: var(--gold); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      background: var(--navy);
+      overflow: hidden;
+    }
+
+    .hero__img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(10,24,40,0.90) 0%,
+        rgba(10,24,40,0.65) 55%,
+        rgba(10,24,40,0.78) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero__body {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: calc(var(--nav-height) + 3.5rem) 0 5rem;
+    }
+
+    .hero__eyebrow {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+    }
+
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.07;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      max-width: 660px;
+    }
+    .hero__title em { font-style: italic; color: var(--gold); font-weight: 300; }
+
+    .hero__sub {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.82);
+      max-width: 430px;
+      margin-bottom: 2.75rem;
+    }
+
+    /* compact enquiry bar — solid white so it reads clearly on the dark hero */
+    .hero__bar {
+      display: flex;
+      flex-direction: column;
+      max-width: 580px;
+      background: #fff;
+      padding: 6px;
+      gap: 6px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+    }
+    @media (min-width: 600px) {
+      .hero__bar { flex-direction: row; gap: 0; }
+    }
+
+    .hero__bar input {
+      flex: 1;
+      height: 52px;
+      padding: 0 1.25rem;
+      background: transparent;
+      border: none;
+      color: var(--navy);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 400;
+      outline: none;
+    }
+    .hero__bar input::placeholder { color: rgba(10,24,40,0.38); }
+    .hero__bar input + input {
+      border-top: 1px solid var(--border);
+    }
+    @media (min-width: 600px) {
+      .hero__bar input + input { border-top: none; border-left: 1px solid var(--border); }
+    }
+
+    .hero__bar-btn {
+      height: 52px;
+      padding: 0 1.75rem;
+      background: var(--navy);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s;
+      width: 100%;
+    }
+    @media (min-width: 600px) { .hero__bar-btn { width: auto; } }
+    .hero__bar-btn:hover { background: var(--gold); }
+
+    .hero__fb {
+      margin-top: 0.7rem;
+      font-size: 0.78rem;
+      min-height: 1.2em;
+    }
+    .hero__fb.success { color: #6ee7b7; }
+    .hero__fb.error   { color: #fca5a5; }
+
+    .hero__scroll {
+      position: absolute;
+      bottom: 2.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.25);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .hero__scroll-line {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.18);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: .25; } 50% { opacity: .75; } }
+
+    /* ─── PROOF STRIP ─── */
+    .proof {
+      padding: 4.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .proof__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem 1.5rem;
+    }
+    @media (min-width: 768px) { .proof__grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .proof__item { display: flex; flex-direction: column; gap: 0.45rem; }
+
+    .proof__rule {
+      width: 28px;
+      height: 1.5px;
+      background: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+
+    .proof__val {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--navy);
+    }
+
+    .proof__label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── SERVICES (dark) ─── */
+    .services {
+      background: var(--navy);
+      padding: 7rem 0;
+    }
+
+    .services__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+    @media (min-width: 1024px) {
+      .services__inner { grid-template-columns: 320px 1fr; gap: 6rem; align-items: start; }
+    }
+
+    .services__head {
+      position: sticky;
+      top: calc(var(--nav-height) + 2rem);
+    }
+
+    .eyebrow-gold {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .services__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.9rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+    .services__title em { font-style: italic; color: var(--gold); }
+
+    .services__desc {
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.68);
+      max-width: 270px;
+    }
+
+    .svc-list { display: flex; flex-direction: column; }
+
+    .svc {
+      display: grid;
+      grid-template-columns: 2.25rem 1fr;
+      gap: 1.75rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .svc:last-child { border-bottom: 1px solid rgba(255,255,255,0.07); }
+
+    .svc__num {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      padding-top: 0.35rem;
+    }
+
+    .svc__name {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.65rem;
+    }
+
+    .svc__body {
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 1.25rem;
+    }
+
+    .svc__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: gap 0.2s;
+    }
+    .svc__link:hover { gap: 0.7rem; }
+    .svc__link::after { content: '→'; }
+
+    /* ─── PROCESS ─── */
+    .process {
+      background: var(--cream);
+      padding: 7rem 0;
+    }
+
+    .section-head { margin-bottom: 4.5rem; }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.18;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--gold-d); }
+
+    .section-sub {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 440px;
+    }
+
+    .process__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    @media (min-width: 768px) { .process__grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; } }
+
+    .step__num {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 300;
+      line-height: 1;
+      color: rgba(10,24,40,0.07);
+      margin-bottom: 0.75rem;
+    }
+
+    .step__name {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--navy);
+      margin-bottom: 0.7rem;
+    }
+
+    .step__body {
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+
+    .process__cta-row {
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testi {
+      padding: 7rem 0;
+      background: #fff;
+    }
+
+    .testi__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    @media (min-width: 768px) { .testi__grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .testi-card {
+      border: 1px solid var(--border);
+      padding: 2.75rem;
+    }
+
+    .testi-card__mark {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 300;
+      line-height: 0.65;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .testi-card__quote {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--navy);
+      margin-bottom: 2rem;
+    }
+
+    .testi-card__rule {
+      width: 28px;
+      height: 1.5px;
+      background: var(--gold);
+      margin-bottom: 0.9rem;
+    }
+
+    .testi-card__name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+
+    .testi-card__role {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ─── CTA ─── */
+    .cta {
+      background: var(--navy);
+      padding: 8rem 0;
+      text-align: center;
+    }
+
+    .cta__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: #fff;
+      max-width: 680px;
+      margin: 1.5rem auto;
+    }
+    .cta__title em { font-style: italic; color: var(--gold); }
+
+    .cta__sub {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.68);
+      max-width: 440px;
+      margin: 0 auto 3rem;
+    }
+
+    .cta__actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 52px;
+      padding: 0 2.5rem;
+      background: var(--gold);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-d); }
+
+    .btn-outline-white {
+      display: inline-flex;
+      align-items: center;
+      height: 52px;
+      padding: 0 2.5rem;
+      background: transparent;
+      color: rgba(255,255,255,0.85);
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.45);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline-white:hover { border-color: rgba(255,255,255,0.85); color: #fff; }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      background: #060e18;
+      padding: 5rem 0 2.5rem;
+    }
+
+    .footer__top {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 2rem;
+    }
+    @media (min-width: 768px) { .footer__top { grid-template-columns: 1.5fr 1fr 1fr; } }
+
+    .footer__logo {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.65rem;
+    }
+
+    .footer__tagline {
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.55);
+      max-width: 280px;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer__email {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .footer__email:hover { color: rgba(255,255,255,0.85); }
+
+    .footer__col-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer__links { display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer__links a {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.60);
+      transition: color 0.2s;
+    }
+    .footer__links a:hover { color: rgba(255,255,255,0.88); }
+
+    .footer__bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .footer__copy {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.38);
+    }
+
+    /* ─── MODAL ─── */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(6,14,24,0.82);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-bg.open { opacity: 1; pointer-events: all; }
+
+    .modal-box {
+      background: #fff;
+      width: 100%;
+      max-width: 540px;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 3rem;
+      position: relative;
+      transform: translateY(14px);
+      transition: transform 0.25s;
+    }
+    .modal-bg.open .modal-box { transform: translateY(0); }
+
+    @media (max-width: 480px) { .modal-box { padding: 2rem 1.5rem; } }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem; right: 1.25rem;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--cream);
+      color: var(--navy);
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.18s;
+      border: none;
+    }
+    .modal-close:hover { background: var(--border); }
+
+    .modal-eyebrow {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-sub {
+      font-size: 0.92rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    /* form */
+    .mform { display: flex; flex-direction: column; gap: 1rem; }
+
+    .mform-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 460px) { .mform-row { grid-template-columns: 1fr; } }
+
+    .mform-group { display: flex; flex-direction: column; gap: 0.35rem; }
+
+    .mform-group label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .mform-group input,
+    .mform-group select,
+    .mform-group textarea {
+      width: 100%;
+      height: 48px;
+      padding: 0 1rem;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      color: var(--navy);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 300;
+      outline: none;
+      border-radius: 0;
+      transition: border-color 0.18s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .mform-group textarea { height: auto; padding: 0.75rem 1rem; resize: vertical; }
+    .mform-group input:focus,
+    .mform-group select:focus,
+    .mform-group textarea:focus { border-color: var(--gold); }
+    .mform-group input::placeholder { color: rgba(10,24,40,0.25); }
+
+    .mform-feedback {
+      padding: 0.7rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 400;
+      display: none;
+    }
+    .mform-feedback.success { display: block; background: #f0fdf4; color: #166534; border-left: 2px solid #16a34a; }
+    .mform-feedback.error   { display: block; background: #fff1f2; color: #9f1239; border-left: 2px solid #e11d48; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="/" class="nav__logo">
+          <span class="nav__logo-prefix">Dubai Premium</span>
+          <span class="nav__logo-sep"></span>
+          <span class="nav__logo-word">Edge</span>
+        </a>
+        <ul class="nav__links">
+          <li><a href="#services">What we do</a></li>
+          <li><a href="#process">Our approach</a></li>
+          <li><a href="#testimonials">Clients</a></li>
+        </ul>
+        <button class="nav__cta" onclick="openModal()">Speak to us</button>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="hero">
+    <img class="hero__img"
+      src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=80"
+      alt="Dubai skyline">
+    <div class="hero__overlay"></div>
+
+    <div class="container">
+      <div class="hero__body">
+        <span class="hero__eyebrow">Private Property Intelligence · Dubai</span>
+        <h1 class="hero__title">
+          We know what<br>Dubai is worth<br>to <em>you.</em>
+        </h1>
+        <p class="hero__sub">
+          A consultancy for those who move before the market does —
+          not after it already has.
+        </p>
+        <form id="hero-form" novalidate>
+          <div class="hero__bar">
+            <input type="text"  name="name"  placeholder="Your name"  required>
+            <input type="email" name="email" placeholder="Your email" required>
+            <button type="submit" class="hero__bar-btn">Start the conversation</button>
+          </div>
+          <p class="hero__fb" id="hero-fb"></p>
+        </form>
+      </div>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <div class="hero__scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+
+  <!-- ── PROOF STRIP ── -->
+  <section class="proof">
+    <div class="container">
+      <div class="proof__grid">
+        <div class="proof__item">
+          <div class="proof__rule"></div>
+          <span class="proof__val">AED 2.4B</span>
+          <span class="proof__label">Moved quietly</span>
+        </div>
+        <div class="proof__item">
+          <div class="proof__rule"></div>
+          <span class="proof__val">94%</span>
+          <span class="proof__label">Repeat &amp; referred</span>
+        </div>
+        <div class="proof__item">
+          <div class="proof__rule"></div>
+          <span class="proof__val">12</span>
+          <span class="proof__label">Years ahead</span>
+        </div>
+        <div class="proof__item">
+          <div class="proof__rule"></div>
+          <span class="proof__val">One</span>
+          <span class="proof__label">Market. Infinite angles.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── SERVICES ── -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="services__inner">
+
+        <div class="services__head">
+          <span class="eyebrow-gold">What we actually do</span>
+          <h2 class="services__title">
+            Three things,<br>done with<br><em>uncommon</em><br>precision.
+          </h2>
+          <p class="services__desc">
+            We are not a listing portal.<br>
+            We don't work with everyone.<br>
+            We work well with a few.
+          </p>
+        </div>
+
+        <div class="svc-list">
+          <div class="svc">
+            <span class="svc__num">01</span>
+            <div>
+              <h3 class="svc__name">Entry Intelligence</h3>
+              <p class="svc__body">
+                The difference between a good deal and a great one is timing.
+                We study the window before it opens and tell you when to move —
+                not when everyone else already has.
+              </p>
+              <button class="svc__link" onclick="openModal()">Enquire</button>
+            </div>
+          </div>
+
+          <div class="svc">
+            <span class="svc__num">02</span>
+            <div>
+              <h3 class="svc__name">Capital Positioning</h3>
+              <p class="svc__body">
+                Where you put capital matters more than how much you put.
+                We align positions with the parts of the market that are
+                still underpriced — for now.
+              </p>
+              <button class="svc__link" onclick="openModal()">Enquire</button>
+            </div>
+          </div>
+
+          <div class="svc">
+            <span class="svc__num">03</span>
+            <div>
+              <h3 class="svc__name">Exit Architecture</h3>
+              <p class="svc__body">
+                Getting in is the easy part. Knowing when and how to exit —
+                before the next cycle — is where returns are actually made.
+                We design the path before you take the first step.
+              </p>
+              <button class="svc__link" onclick="openModal()">Enquire</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── PROCESS ── -->
+  <section class="process" id="process">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow-gold" style="color:var(--gold-d)">Our approach</span>
+        <h2 class="section-title">
+          The way we work.<br>
+          <em>Unhurried. Deliberate.</em>
+        </h2>
+        <p class="section-sub">
+          The best outcomes come from the best questions,
+          not the fastest answers.
+        </p>
+      </div>
+
+      <div class="process__grid">
+        <div>
+          <p class="step__num">01</p>
+          <h3 class="step__name">We map your position.</h3>
+          <p class="step__body">
+            Before we suggest a single asset, we understand where you are:
+            your horizon, your appetite, and the blind spots you may not
+            know you have yet.
+          </p>
+        </div>
+        <div>
+          <p class="step__num">02</p>
+          <h3 class="step__name">We show you what's real.</h3>
+          <p class="step__body">
+            Not brochures. Not projections built to impress. The actual
+            topology of opportunity — including the parts not yet being
+            advertised.
+          </p>
+        </div>
+        <div>
+          <p class="step__num">03</p>
+          <h3 class="step__name">We stay in the deal.</h3>
+          <p class="step__body">
+            After the ink dries, we don't disappear. Your acquisition
+            is a long position. So is our relationship with you.
+          </p>
+        </div>
+      </div>
+
+      <div class="process__cta-row">
+        <button class="btn-gold" onclick="openModal()">Begin the conversation</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="testi" id="testimonials">
+    <div class="container">
+      <span class="eyebrow-gold" style="color:var(--gold-d)">What clients say</span>
+      <h2 class="section-title" style="max-width:500px">
+        A track record we<br>can't <em>fully publish.</em>
+      </h2>
+
+      <div class="testi__grid">
+        <div class="testi-card">
+          <span class="testi-card__mark">"</span>
+          <p class="testi-card__quote">
+            They identified a development fourteen months before it was
+            announced. When I tell you timing changes everything — I mean
+            it literally.
+          </p>
+          <div class="testi-card__rule"></div>
+          <p class="testi-card__name">M. Al-Rashidi</p>
+          <p class="testi-card__role">Investor — Abu Dhabi, UAE</p>
+        </div>
+
+        <div class="testi-card">
+          <span class="testi-card__mark">"</span>
+          <p class="testi-card__quote">
+            I've sat across the table from a lot of agents in this city.
+            This is the only conversation that ever felt like someone
+            was genuinely on my side.
+          </p>
+          <div class="testi-card__rule"></div>
+          <p class="testi-card__name">R. Whitmore</p>
+          <p class="testi-card__role">Portfolio investor — London, UK</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── CTA ── -->
+  <section class="cta">
+    <div class="container">
+      <span class="eyebrow-gold">Ready?</span>
+      <h2 class="cta__title">
+        One conversation.<br><em>That's all it takes.</em>
+      </h2>
+      <p class="cta__sub">
+        Our best opportunities don't make it to listings.
+        They go to people we've already spoken with.
+      </p>
+      <div class="cta__actions">
+        <button class="btn-gold" onclick="openModal()">Speak to us</button>
+        <button class="btn-outline-white" onclick="openModal()">Call directly</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div>
+          <span class="footer__logo" style="display:inline-flex;align-items:center;gap:0.75rem">
+        <span style="font-family:var(--font-body);font-size:0.78rem;font-weight:400;letter-spacing:0.1em;color:rgba(255,255,255,0.75)">Dubai Premium</span>
+        <span style="width:1px;height:18px;background:var(--gold);opacity:0.7;flex-shrink:0"></span>
+        <span style="font-family:var(--font-display);font-size:1.5rem;font-weight:400;font-style:italic;line-height:1;color:#fff;letter-spacing:0.02em">Edge</span>
+      </span>
+          <p class="footer__tagline">
+            A private property consultancy operating across Dubai.
+            By introduction only.
+          </p>
+        </div>
+        <div>
+          <p class="footer__col-title">Navigate</p>
+          <ul class="footer__links">
+            <li><a href="#services">What we do</a></li>
+            <li><a href="#process">Our approach</a></li>
+            <li><a href="#testimonials">Clients</a></li>
+            <li><a href="#" onclick="openModal();return false">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Services</p>
+          <ul class="footer__links">
+            <li><a href="#" onclick="openModal();return false">Entry Intelligence</a></li>
+            <li><a href="#" onclick="openModal();return false">Capital Positioning</a></li>
+            <li><a href="#" onclick="openModal();return false">Exit Architecture</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2025 Dubai Premium Edge.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ── MODAL ── -->
+  <div class="modal-bg" id="modal-bg" role="dialog" aria-modal="true" aria-labelledby="modal-h">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+
+      <span class="modal-eyebrow">Start the conversation</span>
+      <h2 class="modal-title" id="modal-h">Speak to us.</h2>
+      <p class="modal-sub">
+        Leave your details and a consultant will be in touch within one
+        business day — no obligation, no pitch.
+      </p>
+
+      <form id="modal-form" class="mform" novalidate>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label for="m-name">Full name *</label>
+            <input type="text" id="m-name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="mform-group">
+            <label for="m-email">Email *</label>
+            <input type="email" id="m-email" name="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+        <div class="mform-row">
+          <div class="mform-group">
+            <label for="m-phone">Phone</label>
+            <input type="tel" id="m-phone" name="phone" placeholder="+971 50 000 0000">
+          </div>
+          <div class="mform-group">
+            <label for="m-type">I'm interested in</label>
+            <select id="m-type" name="propertyType">
+              <option value="">Select…</option>
+              <option>Entry — buying or investing</option>
+              <option>Capital positioning</option>
+              <option>Exit strategy</option>
+              <option>General advisory</option>
+            </select>
+          </div>
+        </div>
+        <div class="mform-group">
+          <label for="m-budget">Budget range</label>
+          <select id="m-budget" name="budget">
+            <option value="">Prefer not to say</option>
+            <option>AED 1M – 3M</option>
+            <option>AED 3M – 7M</option>
+            <option>AED 7M – 15M</option>
+            <option>AED 15M+</option>
+          </select>
+        </div>
+        <div class="mform-group">
+          <label for="m-msg">What's on your mind? *</label>
+          <textarea id="m-msg" name="message" rows="4"
+            placeholder="Tell us where you are and where you want to be." required></textarea>
+        </div>
+        <div class="mform-feedback" id="modal-fb"></div>
+        <button type="submit" class="btn-gold">Send message</button>
+      </form>
+    </div>
+  </div>
+
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 12);
+    }, { passive: true });
+
+    // Modal
+    const bg = document.getElementById('modal-bg');
+
+    function openModal() {
+      bg.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      bg.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    bg.addEventListener('click', e => { if (e.target === bg) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Submit
+    async function submit(formEl, fbId, defaultMsg) {
+      const fb  = document.getElementById(fbId);
+      const btn = formEl.querySelector('[type=submit]');
+      const data = {};
+      new FormData(formEl).forEach((v, k) => { if (String(v).trim()) data[k] = String(v).trim(); });
+
+      if (!data.name || !data.email) {
+        return setFb(fb, 'error', 'Please enter your name and email.');
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+        return setFb(fb, 'error', 'Please enter a valid email address.');
+      }
+      if (!data.message) data.message = defaultMsg;
+
+      const orig = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      try {
+        const res  = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        if (res.ok) {
+          setFb(fb, 'success', "Thank you — we'll be in touch shortly.");
+          formEl.reset();
+        } else {
+          setFb(fb, 'error', json.error || 'Something went wrong. Please try again.');
+        }
+      } catch {
+        setFb(fb, 'error', 'Network error. Please try again.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = orig;
+      }
+    }
+
+    function setFb(el, type, msg) {
+      // hero feedback uses inline <p>, modal uses a div with display toggle
+      if (el.id === 'hero-fb') {
+        el.className = 'hero__fb ' + type;
+      } else {
+        el.className = 'mform-feedback ' + type;
+      }
+      el.textContent = msg;
+    }
+
+    document.getElementById('hero-form').addEventListener('submit', e => {
+      e.preventDefault();
+      submit(e.currentTarget, 'hero-fb', 'Enquiry via hero form.');
+    });
+
+    document.getElementById('modal-form').addEventListener('submit', e => {
+      e.preventDefault();
+      submit(e.currentTarget, 'modal-fb', 'General enquiry.');
+    });
+  </script>
+</body>
+</html>
